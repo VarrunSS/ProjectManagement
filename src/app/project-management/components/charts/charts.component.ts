@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 
 
 @Component({
@@ -10,6 +10,20 @@ import { routerTransition } from '../../router.animations';
 })
 
 export class ChartsComponent implements OnInit {
+
+
+    
+    // Pie
+    public pieChartLabels: string[] = [
+        'Resource 1',
+        'Resource 2',
+        'Resource 3'
+    ];
+    public pieChartData: number[] = [34, 56, 10];
+    public pieChartType: string = 'pie';
+
+
+    
     // bar chart
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -56,15 +70,6 @@ export class ChartsComponent implements OnInit {
         { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' }
     ];
     public radarChartType: string = 'radar';
-
-    // Pie
-    public pieChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail Sales'
-    ];
-    public pieChartData: number[] = [300, 500, 100];
-    public pieChartType: string = 'pie';
 
     // PolarArea
     public polarAreaChartLabels: string[] = [
