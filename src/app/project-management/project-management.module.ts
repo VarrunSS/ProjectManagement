@@ -6,6 +6,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectManagementRoutingModule } from './project-management-routing.module';
 import { ProjectManagementComponent } from './project-management.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ChartsModule } from './charts/charts.module';
 
 @NgModule({
     imports: [
@@ -14,7 +15,11 @@ import { HeaderComponent } from './components/header/header.component';
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [ProjectManagementComponent, HeaderComponent]
+    declarations: [
+        ProjectManagementComponent,
+        HeaderComponent,
+        ChartsModule
+    ]
 })
 
-export class ProjectManagementModule {}
+export class ProjectManagementModule { }
