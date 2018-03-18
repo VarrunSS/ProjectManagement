@@ -1,20 +1,51 @@
-<div [@routerTransition] >
-
-
+<div [@routerTransition]>
 
     <div class="row">
-            <div class="col col-sm-6">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-                                (chartClick)="chartClicked($event)">
-                            </canvas>
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Task: Login page
+                    <button class="btn btn-sm btn-outline-info float-right" (click)="displayDetails()">
+                        View Details
+                    </button>
+                </div>
+                <div class="card-body">
+                    <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6">
+            <div *ngIf="showDetails">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div class="text-success">
+                            <h6 class="my-0">John Doe</h6>
+                            <small class="text-muted">Architect - Exp: 9 years</small>
                         </div>
-                    </div>
-                </div>                
+                        <span class="text-success">2 days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">David</h6>
+                            <small class="text-muted">Manager - Exp: 6 years</small>
+                        </div>
+                        <span class="text-muted">3 days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Rick</h6>
+                            <small class="text-muted">Techie - Exp: 5 years</small>
+                        </div>
+                        <span class="text-muted">6 days</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-<!--     
+    <!--     
     <div class="row">
         <div class="col col-sm-6">
             <div class="card mb-3">

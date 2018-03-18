@@ -6,15 +6,21 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FormComponent implements OnInit {
-    
-    public displayCharts : boolean = false;
+
+    public displayTable: Boolean = false;
+    public displayCharts: Boolean = false;
 
     constructor() { }
 
     ngOnInit() { }
 
+    public addToTable(): void {
+        this.displayTable = true;
+        this.displayCharts = false;
+    }
+
     public findData(): void {
-        console.log('find it!')
+        console.log('find it!');
         this.displayCharts = true;
     }
 }

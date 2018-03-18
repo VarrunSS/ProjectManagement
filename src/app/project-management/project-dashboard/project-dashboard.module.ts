@@ -6,6 +6,7 @@ import { ProjectDashboardRoutingModule } from './project-dashboard-routing.modul
 import { ProjectDashboardComponent } from './project-dashboard.component';
 import { ChartsComponent } from '../components/charts/charts.component';
 import { FormComponent } from '../components/form/form.component';
+import { ProjectTableComponent } from '../components/table/project-table.component';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { FormComponent } from '../components/form/form.component';
     declarations: [
         ProjectDashboardComponent,
         FormComponent,
+        ProjectTableComponent,
         ChartsComponent],
     providers: []
 })

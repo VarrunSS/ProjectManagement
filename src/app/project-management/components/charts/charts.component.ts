@@ -11,8 +11,12 @@ import { routerTransition } from '../../../router.animations';
 
 export class ChartsComponent implements OnInit {
 
+    public showDetails: Boolean = false;
 
-    
+    public displayDetails(): void {
+        this.showDetails = !(this.showDetails);
+    }
+
     // Pie
     public pieChartLabels: string[] = [
         'Resource 1',
@@ -23,7 +27,6 @@ export class ChartsComponent implements OnInit {
     public pieChartType: string = 'pie';
 
 
-    
     // bar chart
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -69,7 +72,7 @@ export class ChartsComponent implements OnInit {
         { data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
         { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' }
     ];
-    public radarChartType: string = 'radar';
+    public radarChartType = 'radar';
 
     // PolarArea
     public polarAreaChartLabels: string[] = [
