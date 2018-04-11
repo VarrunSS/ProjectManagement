@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
-
+import { TaskOutput, Employee } from '../../proj-models';
+import { Http } from '@angular/http';
 
 @Component({
     selector: 'app-charts',
@@ -10,132 +11,85 @@ import { routerTransition } from '../../../router.animations';
 })
 
 export class ChartsComponent implements OnInit {
+    @Input() taskOutput: TaskOutput;
 
     public showDetails: Boolean = false;
+    public detailsFetched: Boolean = false;
+
+    public pieChartType: string = 'pie';
+    public pieChartLabels: string[] = [];
+    public pieChartData: number[] = [];
+
+    private data: any;
+
+    private _baseUrl = 'http://localhost:5050/';
+
+    constructor(private _http: Http) { }
+
+    ngOnInit() {
+
+        console.log(this.taskOutput);
+        if (this.taskOutput != undefined && this.taskOutput.employees.length > 0) {
+            this.taskOutput.employees.forEach(emp => {
+                this.pieChartLabels.push(emp.id);
+                this.pieChartData.push(emp.suitable);
+            });
+        }
+    }
 
     public displayDetails(): void {
         this.showDetails = !(this.showDetails);
+
+        if (!this.detailsFetched) {
+            this._getAssociateDetails();
+            this.detailsFetched = true;
+        }
     }
 
-    // Pie
-    public pieChartLabels: string[] = [
-        'Resource 1',
-        'Resource 2',
-        'Resource 3'
-    ];
-    public pieChartData: number[] = [34, 56, 10];
-    public pieChartType: string = 'pie';
+    private _getAssociateDetails() {
+        console.log('clicked')
+        console.log(this.taskOutput.employees)
 
 
-    // bar chart
-    public barChartOptions: any = {
-        scaleShowVerticalLines: false,
-        responsive: true
-    };
-    public barChartLabels: string[] = [
-        '2006',
-        '2007',
-        '2008',
-        '2009',
-        '2010',
-        '2011',
-        '2012'
-    ];
-    public barChartType: string = 'bar';
-    public barChartLegend: boolean = true;
+        this._http.get(this._baseUrl + 'api/Values/').subscribe(result => {
+            this.data = result.json() as Employee[];
 
-    public barChartData: any[] = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-    ];
+            // Update final output - taskOutput
+            this.taskOutput.employees.forEach(v => {
+                let objIndex = this.data.findIndex((x => x.id == v.id));
+                let target = this.data[objIndex];
 
-    // Doughnut
-    public doughnutChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail-Order Sales'
-    ];
-    public doughnutChartData: number[] = [350, 450, 100];
-    public doughnutChartType: string = 'doughnut';
+                v.name = target.name;
+                v.designation = target.designation;
+                v.experience = target.experience;
+            });
 
-    // Radar
-    public radarChartLabels: string[] = [
-        'Eating',
-        'Drinking',
-        'Sleeping',
-        'Designing',
-        'Coding',
-        'Cycling',
-        'Running'
-    ];
-    public radarChartData: any = [
-        { data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' }
-    ];
-    public radarChartType = 'radar';
+            this._getTimeDuration(0);
+            console.log(this.taskOutput);
+        }, error => console.error(error));
 
-    // PolarArea
-    public polarAreaChartLabels: string[] = [
-        'Download Sales',
-        'In-Store Sales',
-        'Mail Sales',
-        'Telesales',
-        'Corporate Sales'
-    ];
-    public polarAreaChartData: number[] = [300, 500, 100, 40, 120];
-    public polarAreaLegend: boolean = true;
 
-    public polarAreaChartType: string = 'polarArea';
+    }
 
-    // lineChart
-    public lineChartData: Array<any> = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-        { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
-    ];
-    public lineChartLabels: Array<any> = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July'
-    ];
-    public lineChartOptions: any = {
-        responsive: true
-    };
-    public lineChartColors: Array<any> = [
-        {
-            // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
-        {
-            // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
-        },
-        {
-            // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    private _getTimeDuration(ind: number) {
+        let emp: Employee = this.taskOutput.employees[ind];
+        if (true) {
+            // call gpai here
+
+            let random: number = Math.random() * 1000;
+            let no: number = Math.ceil(random) % 10;
+            this.taskOutput.employees[ind].days = no;
+
+            ind++;
+            if (ind == this.taskOutput.employees.length) {
+                console.log('Time duration completed.')
+            }
+            else {
+                this._getTimeDuration(ind);
+            }
+
         }
-    ];
-    public lineChartLegend: boolean = true;
-    public lineChartType: string = 'line';
+    }
 
     // events
     public chartClicked(e: any): void {
@@ -146,29 +100,4 @@ export class ChartsComponent implements OnInit {
         // console.log(e);
     }
 
-    public randomize(): void {
-        // Only Change 3 values
-        const data = [
-            Math.round(Math.random() * 100),
-            59,
-            80,
-            Math.random() * 100,
-            56,
-            Math.random() * 100,
-            40
-        ];
-        const clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
-        this.barChartData = clone;
-        /**
-         * (My guess), for Angular to recognize the change in the dataset
-         * it has to change the dataset variable directly,
-         * so one way around it, is to clone the data, change it and then
-         * assign it;
-         */
-    }
-
-    constructor() { }
-
-    ngOnInit() { }
 }

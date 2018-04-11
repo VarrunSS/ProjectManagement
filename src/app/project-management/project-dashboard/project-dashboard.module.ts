@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
+import { FormsModule }   from '@angular/forms';
 
 import { ProjectDashboardRoutingModule } from './project-dashboard-routing.module';
 import { ProjectDashboardComponent } from './project-dashboard.component';
@@ -12,7 +13,8 @@ import { ProjectTableComponent } from '../components/table/project-table.compone
     imports: [
         CommonModule,
         ProjectDashboardRoutingModule,
-        Ng2Charts
+        Ng2Charts,
+        FormsModule
     ],
     exports: [],
     declarations: [

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
+import { TaskDetail } from '../../proj-models';
 
 @Component({
     selector: 'proj-table',
@@ -9,7 +10,11 @@ import { routerTransition } from '../../../router.animations';
 })
 
 export class ProjectTableComponent implements OnInit {
+    @Input() projectDetail: TaskDetail[] = [];
+
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        
+    }
 }

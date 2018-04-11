@@ -3,7 +3,7 @@
 
     <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Summary</span>
-        <span class="badge badge-secondary badge-pill">3</span>
+        <span class="badge badge-secondary badge-pill">{{projectDetail.length}}</span>
     </h4>
 
 
@@ -17,7 +17,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <ng-container *ngFor="let detail of projectDetail">
+                <tr>
+                    <th scope="row">{{detail.task}}</th>
+                    <td>{{detail.team}}</td>
+                    <td>{{detail.summary}}</td>
+                    <td>{{detail.difficulty}}</td>
+                </tr>
+            </ng-container>
+            <!-- <tr>
                 <th scope="row">Task</th>
                 <td>PDT</td>
                 <td>Login page</td>
@@ -34,7 +42,7 @@
                 <td>Data Science</td>
                 <td>Analyze market strategy</td>
                 <td>Hard</td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 

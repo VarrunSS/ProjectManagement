@@ -3,20 +3,12 @@
         <h4> Project Details</h4>
 
         <hr class="mb-3">
-        <form class="mb-5">
+        <form class="mb-5" novalidate (ngSubmit)="onSubmit()" #taskForm="ngForm">
 
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
                 <div class="col-sm-10">
-                    <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-outline-primary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Task
-                </label>
-                <label class="btn btn-outline-danger">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Bug
-                </label>
-            </div> -->
-                    <div class="form-check form-check-inline custom-control custom-radio">
+                    <!-- <div class="form-check form-check-inline custom-control custom-radio">
                         <input class="custom-control-input" type="radio" name="rdoType" id="rdoTypeTask" value="option1" checked>
                         <label class="custom-control-label" for="rdoTypeTask">
                             Task
@@ -27,50 +19,56 @@
                         <label class="custom-control-label" for="rdoTypeBug">
                             Bug
                         </label>
-                    </div>
+                    </div> -->
+                    <ng-container *ngFor="let t of tasks">
+                        <div class="form-check form-check-inline custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="task" [id]="t" [value]="t" [(ngModel)]="model.task" #task="ngModel"
+                                checked required>
+                            <label class="custom-control-label" [for]="t">
+                                {{t}}
+                            </label>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" [ngClass]="{
+                'has-danger': team.invalid && (team.dirty || team.touched),
+                'has-success': team.valid && (team.dirty || team.touched)
+              }">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Team</label>
                 <div class="col-sm-10">
-                    <select class="custom-select">
-                        <option selected>Select a Team</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="custom-select" id="team" name="team" [(ngModel)]="model.team" #team="ngModel" required>
+                        <option *ngFor="let team of teams" [value]="team">{{team}}</option>
                     </select>
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" [ngClass]="{
+                'has-danger': summary.invalid && (summary.dirty || summary.touched),
+                'has-success': summary.valid && (summary.dirty || summary.touched)
+              }">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Summary</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="inputPassword3" placeholder="Enter summary here.."></textarea>
+                    <textarea class="form-control" id="summary" name="summary" #summary="ngModel" [(ngModel)]="model.summary" placeholder="Enter summary here.."
+                        required></textarea>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Difficulty</label>
                 <div class="col-sm-10">
-                    <div class="form-check form-check-inline custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="custom-control-label" for="gridRadios1">
-                            Easy
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="custom-control-label" for="gridRadios2">
-                            Medium
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
-                        <label class="custom-control-label" for="gridRadios3">
-                            Hard
-                        </label>
-                    </div>
+
+                    <ng-container *ngFor="let d of difficulties">
+                        <div class="form-check form-check-inline custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" name="difficulty" [id]="d" [value]="d" [(ngModel)]="model.difficulty" #difficulty="ngModel"
+                                required>
+                            <label class="custom-control-label" [for]="d">
+                                {{d}}
+                            </label>
+                        </div>
+
+                    </ng-container>
                 </div>
             </div>
 
@@ -78,7 +76,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-10 float-right">
-                    <button type="button" id="btnAddTask" class="btn btn-info" (click)="addToTable()">
+                    <button type="button" id="btnAddTask" class="btn btn-info" [disabled]="!taskForm.form.valid" (click)="addToTable()">
                         <i class="fa fa-plus-circle"></i>
                         Add</button>
                 </div>
@@ -89,7 +87,7 @@
     <div class="col-lg-6 order-md-2 mb-4">
         <div *ngIf="displayTable">
 
-            <proj-table></proj-table>
+            <proj-table [projectDetail]="projectDetail"></proj-table>
 
             <div class="form-group row">
                 <div class="col-sm-12 float-right">
@@ -106,6 +104,9 @@
 <div *ngIf="displayCharts">
     <h4 class="mb-3"> Prediction Results </h4>
 
-    <app-charts></app-charts>
+    <ng-container *ngFor="let ch of result">
+        <app-charts [taskOutput]="ch"></app-charts>
+    </ng-container>
+
 
 </div>
