@@ -8,6 +8,8 @@ import { ProjectManagementRoutingModule } from './project-management-routing.mod
 import { ProjectManagementComponent } from './project-management.component';
 import { HeaderComponent } from './components/header/header.component';
 
+import { GoogleApiService } from '../shared/services/index';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -19,7 +21,8 @@ import { HeaderComponent } from './components/header/header.component';
     declarations: [
         ProjectManagementComponent,
         HeaderComponent
-    ]
+    ],
+    providers: [GoogleApiService]
 })
 
 export class ProjectManagementModule { }

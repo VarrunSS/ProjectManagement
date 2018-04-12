@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { GoogleApiService } from '../../shared/services/index'
+
 
 @Component({
     selector: 'app-project-dashboard',
@@ -9,7 +11,17 @@ import { routerTransition } from '../../router.animations';
 })
 
 export class ProjectDashboardComponent implements OnInit {
-    constructor() { }
+    constructor(private _googleApiService: GoogleApiService) {
+
+    }
+
+    googleSignIn(e) {
+        this._googleApiService.handleSignInClick(e);
+    }
+
+    googleSignOut(e) {
+        this._googleApiService.handleSignOutClick(e);
+    }
 
     ngOnInit() { }
 }

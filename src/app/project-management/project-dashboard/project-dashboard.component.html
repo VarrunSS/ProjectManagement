@@ -1,7 +1,11 @@
-
 <div class="container">
     <div class="form-content">
         <div class="col-md-12 order-md-1">
+
+            <div class="float-right">
+                <button class="btn btn-sm btn-outline-primary" (click)="googleSignIn($event)">Sign In</button>
+                <button class="btn btn-sm btn-outline-warning" (click)="googleSignOut($event)">Sign Out</button>
+            </div>
             <proj-form></proj-form>
         </div>
     </div>
