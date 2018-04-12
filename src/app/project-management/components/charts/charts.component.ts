@@ -51,7 +51,7 @@ export class ChartsComponent implements OnInit {
         console.log(this.taskOutput.employees)
 
 
-        this._http.get(this._baseUrl + 'api/Values/').subscribe(result => {
+        this._http.get(this._baseUrl + 'api/employee/').subscribe(result => {
             this.data = result.json() as Employee[];
 
             // Update final output - taskOutput
@@ -83,8 +83,7 @@ export class ChartsComponent implements OnInit {
             ind++;
             if (ind == this.taskOutput.employees.length) {
                 console.log('Time duration completed.')
-            }
-            else {
+            } else {
                 this._getTimeDuration(ind);
             }
 
