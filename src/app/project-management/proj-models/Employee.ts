@@ -7,6 +7,9 @@ export class Employee {
     public experience?: number;
     public suitable?: number;
     public days?: number;
+    public displayDays?: string;
+    
+    public team?: string;
 
     constructor(
     ) {
@@ -16,5 +19,7 @@ export class Employee {
         this.experience = 0;
         this.suitable = 0;
         this.days = 0;
+        this.displayDays = '';
+        this.team = '';
     }
 }

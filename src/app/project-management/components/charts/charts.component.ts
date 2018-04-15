@@ -2,6 +2,7 @@ import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { TaskOutput, Employee, TaskDetail } from '../../proj-models';
 import { Http } from '@angular/http';
+import { parse } from 'url';
 
 
 declare var gapi: any;
@@ -66,17 +67,17 @@ export class ChartsComponent implements OnInit {
         // this._http.get(this._baseUrl + 'api/employee/').subscribe(result => {
         //     this.data = result.json() as Employee[];
 
-            // Update final output - taskOutput
-            this.taskOutput.employees.forEach(v => {
-                let objIndex = this.allEmployeeInformation.findIndex((x => x.id == v.id));
-                let target = this.allEmployeeInformation[objIndex];
+        // Update final output - taskOutput
+        this.taskOutput.employees.forEach(v => {
+            let objIndex = this.allEmployeeInformation.findIndex((x => x.id == v.id));
+            let target = this.allEmployeeInformation[objIndex];
 
-                v.name = target.name;
-                v.designation = target.designation;
-                v.experience = target.experience;
-            });
+            v.name = target.name;
+            v.designation = target.designation;
+            v.experience = target.experience;
+        });
 
-            this._getTimeDuration(0);
+        this._getTimeDuration(0);
         //     console.log(this.taskOutput);
         // }, error => console.error(error));
 
@@ -105,15 +106,19 @@ export class ChartsComponent implements OnInit {
                     csvInstance: input
                 }
             }).then(function (response) {
-                console.log(response);
 
                 that._zone.run(() => {
 
-                    let days = response.result.outputLabel;
-                    this.taskOutput.employees[ind].days = days;
+                    let days = response.result.outputValue;
+                    if (parseFloat(days) <= 0) {
+                        days = 1 - parseFloat(days);
+                        days = days.toString();
+                    }
+                    that.taskOutput.employees[ind].days = days;
+                    that.taskOutput.employees[ind].displayDays = parseFloat(days).toFixed(2);
 
                     ind++;
-                    if (ind == this.taskOutput.employees.length) {
+                    if (ind == that.taskOutput.employees.length) {
                         console.log('Time duration completed.')
                     } else {
                         that._getTimeDuration(ind);
