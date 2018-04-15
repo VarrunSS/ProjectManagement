@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TeamPerformance } from '../../proj-models';
 
 @Component({
     selector: 'app-analysis-table',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class TableComponent implements OnInit {
+    @Input() teamPerformance: TeamPerformance[];
+
     constructor() { }
 
     ngOnInit() { }

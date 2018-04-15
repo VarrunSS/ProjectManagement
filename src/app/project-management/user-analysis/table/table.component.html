@@ -1,13 +1,21 @@
 <table class="table table-hover table-responsive">
-        <thead>
+    <thead>
+        <tr>
+            <th scope="col">Team</th>
+            <th scope="col">Team Size</th>
+            <th scope="col"># of Task completed</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <ng-container *ngFor="let perf of teamPerformance">
             <tr>
-                <th scope="col">Team</th>
-                <th scope="col">Team Size</th>
-                <th scope="col"># of Task completed</th>
+                <th scope="row">{{perf.teamName}}</th>
+                <td>{{perf.teamSize}}</td>
+                <td>{{perf.totalTaskCompleted}}</td>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
+        </ng-container>
+        <!-- <tr>
                 <th scope="row">PDT</th>
                 <td>6</td>
                 <td>74</td>
@@ -21,6 +29,6 @@
                 <th scope="row">Data Science</th>
                 <td>8</td>
                 <td>45</td>
-            </tr>
-        </tbody>
-    </table>
+            </tr> -->
+    </tbody>
+</table>

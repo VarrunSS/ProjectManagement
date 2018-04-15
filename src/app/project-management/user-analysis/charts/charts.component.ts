@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TeamPerformance } from '../../proj-models';
 
 @Component({
     selector: 'app-analysis-charts',
@@ -7,27 +8,55 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ChartsComponent implements OnInit {
-    constructor() { }
+    @Input() teamPerformance: TeamPerformance[];
 
+    public displayChart: boolean = false;
+
+    constructor(
+    ) { }
+
+    ngOnChanges() {
+        this._populateChartData();
+    }
+
+    ngOnInit() {
+
+    }
+
+    private _populateChartData() {
+        this.teamPerformance.forEach((elem, ind) => {
+            let points = {
+                data: [],
+                label: elem.teamName
+            }
+
+            const randomValue = [0.18, 0.25, 0.38, 0.19];
+            points.data.push(randomValue[(0 + ind) % 4] * elem.totalTaskCompleted);
+            points.data.push(randomValue[(1 + ind) % 4] * elem.totalTaskCompleted);
+            points.data.push(randomValue[(2 + ind) % 4] * elem.totalTaskCompleted);
+            points.data.push(randomValue[(3 + ind) % 4] * elem.totalTaskCompleted);
+
+            // Display only top 3 teams.
+            if (ind < 3) {
+                this.lineChartData.push(points);
+            }
+            this.displayChart = true;
+        });
+
+        console.log(this.lineChartData)
+    }
 
     public displayDetails(): void {
 
     }
 
     // lineChart
-    public lineChartData: Array<any> = [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-        { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
-    ];
+    public lineChartData: Array<any> = [];
     public lineChartLabels: Array<any> = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July'
+        'Quarter 1',
+        'Quarter 2',
+        'Quarter 3',
+        'Quarter 4'
     ];
     public lineChartOptions: any = {
         responsive: true
@@ -73,5 +102,4 @@ export class ChartsComponent implements OnInit {
         // console.log(e);
     }
 
-    ngOnInit() { }
 }

@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
 
     // Dropdown Inputs
     public tasks = ["Task", "Bug"];
-    public teams = ["Select a Team", "INT", "MSTR", "UIUX"];
+    public teams = ["Select a Team", "DI", "INT", "MSTR", "RDG", "UIUX"];
     public difficulties = ["Easy", "Medium", "Hard"];
 
     public defaultValue: TaskDetail = new TaskDetail('Task', this.teams[0], 'some summary', 'Easy');

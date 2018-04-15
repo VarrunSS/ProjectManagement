@@ -4,10 +4,14 @@ import { CommonModule } from '@angular/common';
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+
 @NgModule({
     imports: [
         CommonModule,
-        UserProfileRoutingModule
+        UserProfileRoutingModule,
+        NgxDatatableModule
     ],
     exports: [],
     declarations: [UserProfileComponent],

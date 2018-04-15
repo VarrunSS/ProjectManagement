@@ -16,7 +16,8 @@ import { GoogleApiService } from '../shared/services/index';
         HttpModule,
         ProjectManagementRoutingModule,
         TranslateModule,
-        NgbDropdownModule.forRoot()
+        NgbDropdownModule.forRoot(),
+
     ],
     declarations: [
         ProjectManagementComponent,

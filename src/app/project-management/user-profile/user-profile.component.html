@@ -1,18 +1,37 @@
 <h4 class="mb-4"> Employee details </h4>
 
+<input type='text' style='padding:8px;margin:15px auto;width:30%;' id="txtSearchUser" 
+placeholder='Type to filter the table...' (keyup)='updateFilterData($event)'
+/>
+<ngx-datatable class="material" [rows]="rows" [loadingIndicator]="loadingIndicator" [columns]="columns" [columnMode]="'force'"
+    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+</ngx-datatable>
 
-
+<!-- 
 <table class="table table-hover table-striped ">
     <thead>
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Team</th>
-            <th scope="col">Experiance</th>
+            <th scope="col">Type</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Completion Time</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+<ng-container *ngFor="let details of userTask">
+            <tr>
+                 <th scope="row" title="Designation: {{details.designation}} &#013; Experiance: {{details.experience}}">{{details.name}}</th>
+                <td>{{details.team}}</td>
+                <td>{{details.taskType}}</td>
+                <td>{{details.summary}}</td>
+                <td>{{details.difficulty}}</td>
+                <td>{{details.completionInDays}} days</td>
+            </tr>
+        </ng-container> -->
+
+<!-- <tr>
             <th scope="row">114456</th>
             <td>BICChennaiProject</td>
             <td> INT</td>
@@ -75,3 +94,4 @@
 
     </tbody>
 </table>
+ -->
